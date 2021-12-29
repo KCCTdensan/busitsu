@@ -1,27 +1,15 @@
-### https://raw.github.com/github/gitignore/D.gitignore
-
-# Compiled Object files
-*.o
-*.obj
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Compiled Static libraries
-*.a
-*.lib
-
-# Executables
-*.exe
-
-# DUB
 .dub
 docs.json
 __dummy.html
 docs/
-
-# Code coverage
+/busitsu
+busitsu.so
+busitsu.dylib
+busitsu.dll
+busitsu.a
+busitsu.lib
+busitsu-test-*
+*.exe
+*.o
+*.obj
 *.lst
-

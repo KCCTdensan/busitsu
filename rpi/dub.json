@@ -4,9 +4,7 @@
   "license": "NYSL",
   "authors": ["YamaD"],
   "dependencies": {
-    "dlog": "~>0.0.6"
-  },
-  "libs": [
-    "hidapi-libusb"
-  ]
+    "dlog": "~>0.0.6",
+    "vibe-d": "~>0.9.4"
+  }
 }
