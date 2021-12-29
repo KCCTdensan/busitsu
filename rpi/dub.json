@@ -1,0 +1,12 @@
+{
+  "name": "busitsu",
+  "description": "busitsu monitor",
+  "license": "NYSL",
+  "authors": ["YamaD"],
+  "dependencies": {
+    "dlog": "~>0.0.6"
+  },
+  "libs": [
+    "hidapi-libusb"
+  ]
+}
