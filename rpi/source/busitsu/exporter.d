@@ -18,7 +18,7 @@ interface Exporter {
   shared string str();
 }
 
-class Gauge(T): Exporter {
+class Gauge(T) : Exporter {
   string _name;
   string _help;
   T _val;
@@ -29,14 +29,12 @@ class Gauge(T): Exporter {
     _val = val;
   }
 
-  @property
-  shared string str() {
-    import std.format: format;
-    return format!"# HELP %s %s\n# TYPE %s gauge\n%s %s\n"
-                  (_name, _help, _name, _name, _val);
-  }
-
-  @property {
+  shared @property {
+    string str() {
+      import std.format: format;
+      return format!"# HELP %s %s\n# TYPE %s gauge\n%s %s\n"
+                    (_name, _help, _name, _name, _val);
+    }
     T val() {
       return _val;
     }

@@ -1,12 +1,20 @@
-import std.concurrency;
 import dlog;
 import busitsu.serial;
 import busitsu.http;
 
+
 void main() {
+  import std.parallelism;
+
   Logger logger = new DefaultLogger();
   logger.log("booting up...");
-  scope(exit) logger.log("exit...");
 
-  busitsu.http.listen();
+  auto serialConfig = busitsu.serial.Config("/dev/ttyUSB0");
+  auto serialTask = task!(busitsu.serial.listen)(logger, serialConfig);
+
+  auto httpCOnfig = busitsu.http.Config(8080);
+  auto serverTask = task!(busitsu.http.listen)(logger, httpConfig);
+
+  serverTask.executeInNewThread();
+  serialTask.executeInNewThread();
 }

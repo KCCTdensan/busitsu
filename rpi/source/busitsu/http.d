@@ -1,20 +1,25 @@
 module busitsu.http;
 
+import dlog;
 import vibe.vibe;
 import busitsu.exporter;
 
-enum Port = 8080;
+struct Config {
+  ushort port;
+}
 
-void listen() {
+void listen(dlog.Logger logger, Config config) {
   auto router = new URLRouter;
   router.get("/", &handleGetIndex);
   router.get("/metrics", &handleGetMetrics);
 
   auto settings = new HTTPServerSettings;
-  settings.port = Port;
+  settings.port = config.port;
 
   listenHTTP(settings, router);
 
+  logger.log("starting http listener...");
+  scope(exit) logger.log("exiting http listener...");
   runApplication();
 }
 
@@ -24,7 +29,7 @@ void handleGetIndex(HTTPServerRequest req, HTTPServerResponse res) {
 }
 
 void handleGetMetrics(HTTPServerRequest req, HTTPServerResponse res) {
-  import std.algorithm.iteration: map;
-  import std.array: join;
+  import std.algorithm.iteration : map;
+  import std.array : join;
   res.writeBody(DefaultExporters.map!`a.str`.join);
 }
