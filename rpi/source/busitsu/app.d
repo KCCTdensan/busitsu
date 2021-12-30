@@ -2,7 +2,6 @@ import dlog;
 import busitsu.serial;
 import busitsu.http;
 
-
 void main() {
   import std.parallelism;
 
@@ -12,9 +11,9 @@ void main() {
   auto serialConfig = busitsu.serial.Config("/dev/ttyUSB0");
   auto serialTask = task!(busitsu.serial.listen)(logger, serialConfig);
 
-  auto httpCOnfig = busitsu.http.Config(8080);
-  auto serverTask = task!(busitsu.http.listen)(logger, httpConfig);
+  auto httpConfig = busitsu.http.Config(8080);
+  auto httpTask = task!(busitsu.http.listen)(logger, httpConfig);
 
-  serverTask.executeInNewThread();
   serialTask.executeInNewThread();
+  httpTask.executeInNewThread();
 }
